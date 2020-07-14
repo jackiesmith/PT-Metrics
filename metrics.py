@@ -40,8 +40,8 @@ def get_ad_metrics(file, keyword):
 
 def get_petition_metrics(file, keyword, saw_attribute, petition_name):
 
-    df = pd.read_csv(file, keep_default_na=False)
-    saw_str = 'test_attribute_' + saw_attribute
+    df = pd.read_csv(file, keep_default_na=False) #keep_default_na is key or empty cells get NaN -> type errors
+    saw_str = 'test_attribute_' + saw_attribute # todo - decide if user should input ta number or entire string. only number would limit how flexible it can be to other type of saw variables.
     share_str = keyword + '_ask_agreed'
 
     broadcast = df.apply(lambda x: keyword in x[saw_str], axis=1)
