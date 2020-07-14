@@ -1,7 +1,13 @@
 import pandas as pd
+#todo - takes a few seconds to run, research what's written inefficiently
+#todo - can just be one get_metrics function with type input
 
 def get_ad_metrics(file, keyword):
 
+    #todo - this only works for news ads. Add functionality for petition ads and type arguments to differentiate
+    #todo - add functionality to get total news ad entrants
+    #todo - add functionality to get total still subscribed (ps + s) from all news and all petition ads
+    #todo - add functionality for total blocks and total unsubs from all petition and all news ads.
     df = pd.read_csv(file, keep_default_na=False)
 
     entered = df.apply(lambda x: keyword in x['utm_source'], axis=1)
