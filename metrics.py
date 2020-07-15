@@ -19,12 +19,12 @@ def get_ad_metrics(file, keyword):
     zip = df.apply(lambda x: keyword in x['utm_source'] and x['userstate'] != '', axis=1)
     unsub = df.apply(lambda x: keyword in x['utm_source'] and x['permission_status'] == 'no', axis=1)
     blocked = df.apply(lambda x: keyword in x['utm_source'] and x['status'] == 'blocked', axis=1)
-    #todo - these don't need to show every time. Add totals type
+    #todo - doesn't make sense for these to show every time. Add totals type
     total_news_entered = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'], axis=1)
-    total_news_still_subscribed = df.apply(lambda x: x['status'] == 'reachable' and x['permission_status'] == 'yes', axis=1)
+    total_news_still_subscribed = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['status'] == 'reachable' and x['permission_status'] == 'yes', axis=1)
     total_news_blocks = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['status'] == 'blocked', axis=1)
     total_news_unsub = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['permission_status'] == 'no', axis=1)
-    total_petition_entered = df.apply(lambda x: 'ad_petition' in x['utm_source'], axis=1)
+
 
     entered_num = len(entered[entered == True].index)
     weekly_optin_num = len(weekly_optin[weekly_optin == True].index)
@@ -38,7 +38,7 @@ def get_ad_metrics(file, keyword):
     total_news_still_subscribed_num = len(total_news_still_subscribed[total_news_still_subscribed == True].index)
     total_news_blocks_num = len(total_news_blocks[total_news_blocks == True].index)
     total_news_unsub_num = len(total_news_unsub[total_news_unsub == True].index)
-    total_petition_entered_num = len(total_petition_entered[total_petition_entered == True].index)
+
 
     print('entered = ', entered_num, '\n')
     print('weekly optin = ', weekly_optin_num, '\n')
@@ -52,7 +52,6 @@ def get_ad_metrics(file, keyword):
     print('total news still subscribed = ', total_news_still_subscribed_num, '\n')
     print('total news blocks = ', total_news_blocks_num, '\n')
     print('total news unsub = ', total_news_unsub_num, '\n')
-    print('total petition entered = ', total_petition_entered_num, '\n')
 
 
 def get_petition_metrics(file, keyword, saw_attribute, petition_name):
