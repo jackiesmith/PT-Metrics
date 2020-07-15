@@ -34,6 +34,7 @@ def get_ad_metrics(file, keyword):
     zip_num = len(zip[zip == True].index)
     unsub_num = len(unsub[unsub == True].index)
     blocked_num = len(blocked[blocked == True].index)
+
     total_news_entered_num = len(total_news_entered[total_news_entered == True].index)
     total_news_still_subscribed_num = len(total_news_still_subscribed[total_news_still_subscribed == True].index)
     total_news_blocks_num = len(total_news_blocks[total_news_blocks == True].index)
@@ -48,6 +49,7 @@ def get_ad_metrics(file, keyword):
     print('zip num = ', zip_num, '\n')
     print('unsub num = ', unsub_num, '\n')
     print('blocked num = ', blocked_num, '\n')
+
     print('total news entered = ', total_news_entered_num, '\n')
     print('total news still subscribed = ', total_news_still_subscribed_num, '\n')
     print('total news blocks = ', total_news_blocks_num, '\n')
