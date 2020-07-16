@@ -2,13 +2,8 @@ import pandas as pd
 #todo - takes a few seconds to run, research what's written inefficiently
 #todo - can just be one get_metrics function with type input
 
-def get_ad_metrics(file, keyword):
+def get_ad_news_metrics(file, keyword):
 
-    #todo - this only works for news ads. Add functionality for petition ads and type arguments to differentiate
-    #todo - add functionality to get total news ad entrants
-    #todo - add functionality to get total still subscribed (ps + s) from all news and all petition ads
-    #todo - add functionality for total blocks and total unsubs from all petition and all news ads.
-    #todo - would a list of keywords be better since there's usually 10+ ads?
     df = pd.read_csv(file, keep_default_na=False)
 
     entered = df.apply(lambda x: keyword in x['utm_source'], axis=1)
@@ -19,12 +14,6 @@ def get_ad_metrics(file, keyword):
     zip = df.apply(lambda x: keyword in x['utm_source'] and x['userstate'] != '', axis=1)
     unsub = df.apply(lambda x: keyword in x['utm_source'] and x['permission_status'] == 'no', axis=1)
     blocked = df.apply(lambda x: keyword in x['utm_source'] and x['status'] == 'blocked', axis=1)
-    #todo - doesn't make sense for these to show every time. Add totals type
-    total_news_entered = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'], axis=1)
-    total_news_still_subscribed = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['status'] == 'reachable' and x['permission_status'] == 'yes', axis=1)
-    total_news_blocks = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['status'] == 'blocked', axis=1)
-    total_news_unsub = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['permission_status'] == 'no', axis=1)
-
 
     entered_num = len(entered[entered == True].index)
     weekly_optin_num = len(weekly_optin[weekly_optin == True].index)
@@ -35,12 +24,6 @@ def get_ad_metrics(file, keyword):
     unsub_num = len(unsub[unsub == True].index)
     blocked_num = len(blocked[blocked == True].index)
 
-    total_news_entered_num = len(total_news_entered[total_news_entered == True].index)
-    total_news_still_subscribed_num = len(total_news_still_subscribed[total_news_still_subscribed == True].index)
-    total_news_blocks_num = len(total_news_blocks[total_news_blocks == True].index)
-    total_news_unsub_num = len(total_news_unsub[total_news_unsub == True].index)
-
-
     print('entered = ', entered_num, '\n')
     print('weekly optin = ', weekly_optin_num, '\n')
     print('monthly optin = ', monthly_optin_num, '\n')
@@ -50,16 +33,53 @@ def get_ad_metrics(file, keyword):
     print('unsub num = ', unsub_num, '\n')
     print('blocked num = ', blocked_num, '\n')
 
+
+
+def get_ad_petition_metrics(file, keyword, petition_name):
+    df = pd.read_csv(file, keep_default_na=False)
+
+    entered = df.apply(lambda x: keyword in x['utm_source'], axis=1)
+    signed = df.apply(lambda x: x[petition_name] == 'yes', axis=1)
+    zip = df.apply(lambda x: keyword in x['utm_source'] and x['userstate'] != '', axis=1)
+    unsub = df.apply(lambda x: keyword in x['utm_source'] and x['permission_status'] == 'no', axis=1)
+    blocked = df.apply(lambda x: keyword in x['utm_source'] and x['status'] == 'blocked', axis=1)
+
+    entered_num = len(entered[entered == True].index)
+    signed_num = len(signed[signed == True].index)
+    zip_num = len(zip[zip == True].index)
+    unsub_num = len(unsub[unsub == True].index)
+    blocked_num = len(blocked[blocked == True].index)
+
+    print('entered = ', entered_num, '\n')
+    print('signed = ', signed_num, '\n')
+    print('zip num = ', zip_num, '\n')
+    print('unsub num = ', unsub_num, '\n')
+    print('blocked num = ', blocked_num, '\n')
+
+
+
+def get_ad_totals_metrics(file):
+    df = pd.read_csv(file, keep_default_na=False)
+
+    total_news_entered = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'], axis=1)
+    total_news_still_subscribed = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['status'] == 'reachable' and x['permission_status'] == 'yes', axis=1)
+    total_news_blocks = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['status'] == 'blocked', axis=1)
+    total_news_unsub = df.apply(lambda x: 'ad_news_corona_' in x['utm_source'] and x['permission_status'] == 'no',axis=1)
+
+    total_news_entered_num = len(total_news_entered[total_news_entered == True].index)
+    total_news_still_subscribed_num = len(total_news_still_subscribed[total_news_still_subscribed == True].index)
+    total_news_blocks_num = len(total_news_blocks[total_news_blocks == True].index)
+    total_news_unsub_num = len(total_news_unsub[total_news_unsub == True].index)
+
     print('total news entered = ', total_news_entered_num, '\n')
     print('total news still subscribed = ', total_news_still_subscribed_num, '\n')
     print('total news blocks = ', total_news_blocks_num, '\n')
     print('total news unsub = ', total_news_unsub_num, '\n')
 
 
-def get_petition_metrics(file, keyword, saw_attribute, petition_name):
+def get_petition_metrics(file, keyword, saw_str, petition_name):
 
     df = pd.read_csv(file, keep_default_na=False) #keep_default_na is key or empty cells get NaN -> type errors
-    saw_str = 'test_attribute_' + saw_attribute # todo - decide if user should input ta number or entire string. only number would limit how flexible it can be to other type of saw variables.
     share_str = keyword + '_ask_agreed'
 
     broadcast = df.apply(lambda x: keyword in x[saw_str], axis=1)
