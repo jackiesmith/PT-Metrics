@@ -8,7 +8,7 @@ def get_ad_news_metrics(file, keyword):
 
     entered = df.apply(lambda x: keyword in x['utm_source'], axis=1)
     weekly_optin = df.apply(lambda x: keyword in x['utm_source'] and x['second_optin'] == 'yes_news' and x['parenting_feed'] == 'yes', axis=1)
-    monthly_optin = total_optin = df.apply(lambda x: keyword in x['utm_source'] and x['second_optin'] == 'yes_news' and x['parenting_feed'] == 'yes_lite', axis=1)
+    monthly_optin = df.apply(lambda x: keyword in x['utm_source'] and x['second_optin'] == 'yes_news' and x['parenting_feed'] == 'yes_lite', axis=1)
     total_optin = df.apply(lambda x: keyword in x['utm_source'] and x['second_optin'] == 'yes_news', axis=1)
     nothanks_optin = df.apply(lambda x: keyword in x['utm_source'] and x['parenting_feed'] == 'superlite', axis=1)
     zip = df.apply(lambda x: keyword in x['utm_source'] and x['userstate'] != '', axis=1)
