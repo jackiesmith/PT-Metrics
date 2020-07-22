@@ -24,14 +24,17 @@ def get_ad_news_metrics(file, keyword):
     unsub_num = len(unsub[unsub == True].index)
     blocked_num = len(blocked[blocked == True].index)
 
-    print('entered = ', entered_num, '\n')
-    print('weekly optin = ', weekly_optin_num, '\n')
-    print('monthly optin = ', monthly_optin_num, '\n')
-    print('total optin = ', total_optin_num, '\n')
-    print('nothanks optin = ', nothanks_optin_num, '\n')
-    print('zip num = ', zip_num, '\n')
-    print('unsub num = ', unsub_num, '\n')
-    print('blocked num = ', blocked_num, '\n')
+    metrics = {}
+    metrics['entered'] = entered_num
+    metrics['weekly_optin'] = weekly_optin_num
+    metrics['monthly_optin'] = monthly_optin_num
+    metrics['total_optin'] = total_optin_num
+    metrics['nothanks_optin'] = nothanks_optin_num
+    metrics['zip'] = zip_num
+    metrics['unsub'] = unsub_num
+    metrics['blocked'] = blocked_num
+
+    return metrics
 
 
 
@@ -56,13 +59,16 @@ def get_ad_petition_metrics(file, keyword, petition_name):
     unsub_num = len(unsub[unsub == True].index)
     blocked_num = len(blocked[blocked == True].index)
 
-    print('entered = ', entered_num, '\n')
-    print('signed = ', signed_num, '\n')
-    #print('viral signed = ', viral_signed_num, '\n')
-    print('zip num = ', zip_num, '\n')
-    print('still subscribed = ', still_sub_num, '\n')
-    print('unsub num = ', unsub_num, '\n')
-    print('blocked num = ', blocked_num, '\n')
+    metrics = {}
+    metrics['entered'] = entered_num
+    metrics['signed'] = signed_num
+    metrics['still subscribed'] = still_sub_num
+    metrics['zip'] = zip_num
+    metrics['unsub'] = unsub_num
+    metrics['blocked'] = blocked_num
+
+    return metrics
+
 
 
 
@@ -79,10 +85,13 @@ def get_ad_totals_metrics(file):
     total_news_blocks_num = len(total_news_blocks[total_news_blocks == True].index)
     total_news_unsub_num = len(total_news_unsub[total_news_unsub == True].index)
 
-    print('total news entered = ', total_news_entered_num, '\n')
-    print('total news still subscribed = ', total_news_still_subscribed_num, '\n')
-    print('total news blocks = ', total_news_blocks_num, '\n')
-    print('total news unsub = ', total_news_unsub_num, '\n')
+    metrics = {}
+    metrics['total news entered'] = total_news_entered_num
+    metrics['total news still subscribed'] = total_news_still_subscribed_num
+    metrics['total news blocks'] = total_news_blocks_num
+    metrics['total news unsub'] = total_news_unsub_num
+
+    return metrics
 
 
 def get_petition_metrics(file, keyword, saw_str, petition_name):
@@ -110,12 +119,15 @@ def get_petition_metrics(file, keyword, saw_str, petition_name):
     blocked_num = len(blocked[blocked == True].index)
     remaining_num = len(remaining[remaining == True].index)
 
-    print('broadcast = ', broadcast_num, '\n')
-    print('total sigs = ', total_sig_num, '\n')
-    print('broadcast sigs = ', broadcast_sig_num, '\n')
-    print('shared = ', shared_num, '\n')
-    print('viral sig = ', viral_sig_num, '\n')
-    print('soft unsub = ', soft_unsub_num, '\n')
-    print('unsub num = ', unsub_num, '\n')
-    print('blocked num = ', blocked_num, '\n')
-    print('remaining = ', remaining_num, '\n')
+    metrics = {}
+    metrics['broadcast'] = broadcast_num
+    metrics['total sigs'] = total_sig_num
+    metrics['broadcast sigs'] = broadcast_sig_num
+    metrics['shared'] = shared_num
+    metrics['viral sigs'] = viral_sig_num
+    metrics['soft unsub'] = soft_unsub_num
+    metrics['unsub'] = unsub_num
+    metrics['blocked'] = blocked_num
+    metrics['remaining'] = remaining_num
+
+    return metrics
