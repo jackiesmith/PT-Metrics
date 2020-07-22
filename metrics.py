@@ -37,22 +37,30 @@ def get_ad_news_metrics(file, keyword):
 
 def get_ad_petition_metrics(file, keyword, petition_name):
     df = pd.read_csv(file, keep_default_na=False)
+    #viral_str = 'viral_ad_petition_' + keyword
+    #todo will have to update how file is exported to get viral sigs here
 
     entered = df.apply(lambda x: keyword in x['utm_source'], axis=1)
     signed = df.apply(lambda x: x[petition_name] == 'yes', axis=1)
+    #viral_signed = df.apply(lambda x: x[petition_name] == 'yes' and viral_str in x['utm_source'], axis=1)
     zip = df.apply(lambda x: keyword in x['utm_source'] and x['userstate'] != '', axis=1)
+    still_sub = unsub = df.apply(lambda x: keyword in x['utm_source'] and x['permission_status'] == 'yes' and x['status'] == 'reachable', axis=1)
     unsub = df.apply(lambda x: keyword in x['utm_source'] and x['permission_status'] == 'no', axis=1)
     blocked = df.apply(lambda x: keyword in x['utm_source'] and x['status'] == 'blocked', axis=1)
 
     entered_num = len(entered[entered == True].index)
     signed_num = len(signed[signed == True].index)
+    #viral_signed_num = len(viral_signed[viral_signed == True].index)
     zip_num = len(zip[zip == True].index)
+    still_sub_num = len(still_sub[still_sub == True].index)
     unsub_num = len(unsub[unsub == True].index)
     blocked_num = len(blocked[blocked == True].index)
 
     print('entered = ', entered_num, '\n')
     print('signed = ', signed_num, '\n')
+    #print('viral signed = ', viral_signed_num, '\n')
     print('zip num = ', zip_num, '\n')
+    print('still subscribed = ', still_sub_num, '\n')
     print('unsub num = ', unsub_num, '\n')
     print('blocked num = ', blocked_num, '\n')
 
