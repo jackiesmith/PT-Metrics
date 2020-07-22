@@ -5,8 +5,43 @@
     <title>Read Me</title>
 </head>
 <body>
-instructions here
+<p>This app assists in pulling metrics from csv files. Currently, the 4 types of
+metrics pulls available are petitions, petition ads, news ads, and ad totals.
+This is a guide on how to use this app for each of these.</p>
+<br>
 
+<h1>Petitions</h1>
+<p>An export of all users with either the petition’s saw attribute or a utm
+source of the petition’s viral entry should be taken with the following columns
+selected: Saw Attribute, Petition, Attribute, test_attribute_10,
+permission_status, status, advocacy_feed, utm_source. </p>
+<p>Submit this csv to the file field, and then fill out the 4 text fields
+accordingly. An example of what the 4 fields expect, using the millionairebail
+petition, is: metrics type = “petition”, keyword = “millionairebail”,
+saw string - “test_attribute_74”, and petition name =
+“petition_millionairebail_0720”. After these fields are entered, click
+the upload button.
+</p>
+<br>
+
+<h1>Ads</h1>
+<p>An export of all users with a utm_source starting with ad_ within the time
+frame of interest should be taken with the following columns selected:
+utm_source, permission_status, status, second_optin, userstate, parenting_feed,
+petition attribute for any petition ads of interest.
+</p>
+<p>Submit this csv to the file field, and then fill out the other fields
+in the following way:
+</p>
+<p>For news ad metrics, metrics type = “ad_news” and keyword =
+‘coronasymptoms’, for example</p>
+<p>For news petition metrics, metrics type = “ad_petition”, keyword =
+“millionairebail”, petition name = “petition_millionairebail_0720”, for example.
+</p>
+<p>For total ads metrics, metrics type = “ad_totals”. No other fields needed.
+</p>
+<p>After you have filled out the relevant field, click the upload button.</p>
+<br>
 <p><a href="{{ url_for('upload') }}">Upload</a></p>
 </body>
 </html>
