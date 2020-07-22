@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p><a href="{{ url_for('readme') }}">Instructions</a></p>
+<form method=post enctype=multipart/form-data>
+    <label for="file">File name:</label><br>
+    <input type=file name="file"><br>
+
+    <label for="type">Metrics Type:</label><br>
+    <input type=text name="type"><br>
+
+    <label for="keyword">Keyword:</label><br>
+    <input type=text name="keyword"><br>
+
+    <label for="saw_str">Saw String:</label><br>
+    <input type=text name="saw_str"><br>
+
+    <label for="peititon_name">Petition Name:</label><br>
+    <input type=text name="petition_name"><br>
+
+    <input type="submit" value="Upload">
+</form>
+Metrics are: {{ metrics }}
+</body>
+</html>
