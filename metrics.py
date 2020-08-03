@@ -99,12 +99,13 @@ def get_petition_metrics(file, keyword, saw_str, petition_name):
 
     df = pd.read_csv(file, keep_default_na=False) #keep_default_na is key or empty cells get NaN -> type errors
     share_str = keyword + '_ask_agreed'
+    viral_str = 'viral_petition_' + keyword
 
     broadcast = df.apply(lambda x: keyword in x[saw_str], axis=1)
     broadcast_sig = df.apply(lambda x: keyword in x[saw_str] and x[petition_name] == 'yes', axis=1)
     total_sig = df.apply(lambda x: x[petition_name] == 'yes', axis=1)
     shared = df.apply(lambda x: keyword in x[saw_str] and x[petition_name] == 'yes' and share_str in x['test_attribute_10'], axis=1)
-    viral_sig = df.apply(lambda x: keyword in x['utm_source'] and x[petition_name] == 'yes', axis=1)
+    viral_sig = df.apply(lambda x: viral_str in x['utm_source'] and x[petition_name] == 'yes', axis=1)
     blocked = df.apply(lambda x: keyword in x[saw_str] and x['status'] == 'blocked', axis=1)
     unsub = df.apply(lambda x: keyword in x[saw_str] and x['permission_status'] == 'no', axis=1)
     soft_unsub = df.apply(lambda x: keyword in x[saw_str] and x['advocacy_feed'] == 'superlite', axis=1)
